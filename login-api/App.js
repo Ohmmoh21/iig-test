@@ -76,7 +76,14 @@ app.post("/authen", jsonParser, function (req, res, next) {
 	} catch (err) {
 		res.json({ status: "error", message: err.message });
 	}
-	
+	con.connect(function(err) {
+    if (err) throw err;
+    con.query("SELECT * FROM customers WHERE Username=?", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+    });
+    return result;
+  });
 });
 
 app.listen(5500, function () {
